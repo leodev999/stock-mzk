@@ -76,8 +76,9 @@ The DELETE method requires a JSON with the following attributes:
 [collapsiblelisting,json]
 ----
 {
-  "serialNumber": "5",
-  "barCode": "1466571884344"
+  "serialNumber": "1",
+  "barCode": "7898392930332",
+  "name": "Camisa Polo Azul Marinho"
 }
 ----
 
