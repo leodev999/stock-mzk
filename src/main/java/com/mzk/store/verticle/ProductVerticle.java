@@ -13,6 +13,10 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
 
+/*
+ * 
+ * @author <a href="https://github.com/leomayerr/">Leonardo Mayer</a>
+ */
 public class ProductVerticle extends AbstractVerticle {
 
 	public static final int PORT = 8080;

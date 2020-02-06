@@ -6,6 +6,10 @@ import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 
+/*
+ * 
+ * @author <a href="https://github.com/leomayerr/">Leonardo Mayer</a>
+ */
 public class ProductRepositoryImpl implements ProductRepository {
 	
 	private JsonArray products;

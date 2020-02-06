@@ -6,6 +6,10 @@ import com.mzk.store.repository.ProductRepository;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 
+/*
+ * 
+ * @author <a href="https://github.com/leomayerr/">Leonardo Mayer</a>
+ */
 public class ProductHelper {
 
 	public static void loadSampleData(ProductRepository productRepository) {

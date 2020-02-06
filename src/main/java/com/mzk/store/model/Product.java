@@ -1,5 +1,9 @@
 package com.mzk.store.model;
 
+/*
+ * 
+ * @author <a href="https://github.com/leomayerr/">Leonardo Mayer</a>
+ */
 public class Product {
 
 	private String serialNumber;

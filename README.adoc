@@ -24,6 +24,12 @@ mvn clean compile exec:java
 
 == Using the API
 
+This code implements a simple REST API using image:https://img.shields.io/badge/vert.x-3.8.5-purple.svg[link="https://vertx.io"] and image:https://img.shields.io/badge/Java-11-blue.svg[link="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html"]
+
+All objects are persisted in memory.
+
+Some sample objects are automatically initialized.
+
 === Listing Products
 
 ```
