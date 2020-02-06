@@ -1,0 +1,95 @@
+= Store (Stock-mzk)
+
+image:https://img.shields.io/badge/vert.x-3.8.5-purple.svg[link="https://vertx.io"]
+
+This application was generated using http://start.vertx.io
+
+
+== Building
+
+To launch your tests:
+```
+mvn clean test
+```
+
+To package your application:
+```
+mvn clean package
+```
+
+To run your application:
+```
+mvn clean compile exec:java
+```
+
+== Using the API
+
+=== Listing Products
+
+```
+GET http://localhost:8080/api/products
+```
+
+
+=== Adding Products
+
+```
+POST http://localhost:8080/api/products
+```
+
+The POST method requires a JSON with the following attributes:
+
+[collapsiblelisting,json]
+----
+{
+  "serialNumber": "5",
+  "barCode": "1466571884344",
+  "name": "Bermuda Sarja Slim"
+}
+----
+
+It returns a JSON indicating the status of the operation:
+
+[collapsiblelisting,json]
+----
+{
+  "Status" : "Success"
+}
+----
+
+
+
+=== Deleting Products
+
+```
+DELETE http://localhost:8080/api/products
+```
+
+The DELETE method requires a JSON with the following attributes:
+
+[collapsiblelisting,json]
+----
+{
+  "serialNumber": "5",
+  "barCode": "1466571884344"
+}
+----
+
+It returns a JSON indicating the status of the operation:
+
+[collapsiblelisting,json]
+----
+{
+  "Status" : "Success"
+}
+----
+
+
+== Help
+
+* https://vertx.io/docs/[Vert.x Documentation]
+* https://stackoverflow.com/questions/tagged/vert.x?sort=newest&pageSize=15[Vert.x Stack Overflow]
+* https://groups.google.com/forum/?fromgroups#!forum/vertx[Vert.x User Group]
+* https://gitter.im/eclipse-vertx/vertx-users[Vert.x Gitter]
+
+
