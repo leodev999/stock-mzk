@@ -1,0 +1,6 @@
+{
+  "http.port" : 8080,
+  "message.error.not_exist":"Product does not exist.",
+  "message.error.duplicated":"Product already exists.",
+  "message.error.invalid":"Invalid product."
+}

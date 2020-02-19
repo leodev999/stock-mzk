@@ -1,6 +1,7 @@
 = Store (Stock-mzk)
 
 image:https://img.shields.io/badge/vert.x-3.8.5-purple.svg[link="https://vertx.io"]
+image:https://img.shields.io/badge/Java-11-blue.svg[link="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html"]
 
 This application was generated using http://start.vertx.io
 
@@ -22,9 +23,15 @@ To run your application:
 mvn clean compile exec:java
 ```
 
+Or you can run specifying the config file:
+```
+mvn clean package
+java -jar target\store-0.0.1-SNAPSHOT-fat.jar -conf src\main\conf\config.json
+```
+
 == Using the API
 
-This code implements a simple REST API using image:https://img.shields.io/badge/vert.x-3.8.5-purple.svg[link="https://vertx.io"] and image:https://img.shields.io/badge/Java-11-blue.svg[link="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html"]
+This code implements a simple REST API using Vert.x 
 
 All objects are persisted in memory.
 

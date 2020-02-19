@@ -18,6 +18,9 @@ import com.mzk.store.verticle.ProductVerticle;
 
 @ExtendWith(VertxExtension.class)
 public class ProductVerticleTest {
+	
+	public static final int DEFAULT_PORT = 8080;
+	public static final String DEFAULT_HOST = "localhost";
 
 	@BeforeEach
 	@DisplayName("Deploy a verticle")
@@ -32,7 +35,7 @@ public class ProductVerticleTest {
 
 		WebClient client = WebClient.create(vertx);
 
-		client.get(8080, "localhost", "/").as(BodyCodec.string())
+		client.get(DEFAULT_PORT, DEFAULT_HOST, "/").as(BodyCodec.string())
 				.send(testContext.succeeding(response -> testContext.verify(() -> {
 					assertEquals(response.body(), "Verticle is Running");
 					testContext.completeNow();
@@ -48,7 +51,7 @@ public class ProductVerticleTest {
 
 		WebClient client = WebClient.create(vertx);
 
-		client.post(8080, "localhost", "/api/products").putHeader("content-type", "application-json; charset=utf-8")
+		client.post(DEFAULT_PORT, DEFAULT_HOST, "/api/products").putHeader("content-type", "application-json; charset=utf-8")
 				.sendJson(newProduct, testContext.succeeding(response -> {
 					testContext.verify(() -> {
 						assertThat(response.statusCode()).isEqualTo(200);
@@ -67,10 +70,10 @@ public class ProductVerticleTest {
 
 		WebClient client = WebClient.create(vertx);
 
-		client.post(8080, "localhost", "/api/products").putHeader("content-type", "application-json; charset=utf-8")
+		client.post(DEFAULT_PORT, DEFAULT_HOST, "/api/products").putHeader("content-type", "application-json; charset=utf-8")
 				.sendJson(newProduct, testContext.succeeding(response -> {
 					testContext.verify(() -> {
-						client.post(8080, "localhost", "/api/products")
+						client.post(DEFAULT_PORT, DEFAULT_HOST, "/api/products")
 								.putHeader("content-type", "application-json; charset=utf-8")
 								.sendJson(newProduct, testContext.succeeding(response2 -> {
 									testContext.verify(() -> {
@@ -91,7 +94,7 @@ public class ProductVerticleTest {
 
 		WebClient client = WebClient.create(vertx);
 
-		client.post(8080, "localhost", "/api/products").putHeader("content-type", "application-json; charset=utf-8")
+		client.post(DEFAULT_PORT, DEFAULT_HOST, "/api/products").putHeader("content-type", "application-json; charset=utf-8")
 				.sendJson(newProduct, testContext.succeeding(response -> {
 					testContext.verify(() -> {
 						assertThat(response.statusCode()).isEqualTo(400);
@@ -109,7 +112,7 @@ public class ProductVerticleTest {
 
 		WebClient client = WebClient.create(vertx);
 
-		client.post(8080, "localhost", "/api/products").putHeader("content-type", "application-json; charset=utf-8")
+		client.post(DEFAULT_PORT, DEFAULT_HOST, "/api/products").putHeader("content-type", "application-json; charset=utf-8")
 				.sendJson(newProduct, testContext.succeeding(response -> {
 					testContext.verify(() -> {
 						assertThat(response.statusCode()).isEqualTo(400);
@@ -127,7 +130,7 @@ public class ProductVerticleTest {
 
 		WebClient client = WebClient.create(vertx);
 
-		client.post(8080, "localhost", "/api/products").putHeader("content-type", "application-json; charset=utf-8")
+		client.post(DEFAULT_PORT, DEFAULT_HOST, "/api/products").putHeader("content-type", "application-json; charset=utf-8")
 				.sendJson(newProduct, testContext.succeeding(response -> {
 					testContext.verify(() -> {
 						assertThat(response.statusCode()).isEqualTo(400);
@@ -145,7 +148,7 @@ public class ProductVerticleTest {
 
 		WebClient client = WebClient.create(vertx);
 
-		client.post(8080, "localhost", "/api/products").putHeader("content-type", "application-json; charset=utf-8")
+		client.post(DEFAULT_PORT, DEFAULT_HOST, "/api/products").putHeader("content-type", "application-json; charset=utf-8")
 				.sendJson(newProduct, testContext.succeeding(response -> {
 					testContext.verify(() -> {
 						assertThat(response.statusCode()).isEqualTo(400);
@@ -164,10 +167,10 @@ public class ProductVerticleTest {
 
 		WebClient client = WebClient.create(vertx);
 
-		client.post(8080, "localhost", "/api/products").putHeader("content-type", "application-json; charset=utf-8")
+		client.post(DEFAULT_PORT, DEFAULT_HOST, "/api/products").putHeader("content-type", "application-json; charset=utf-8")
 				.sendJson(newProduct, testContext.succeeding(response -> {
 					testContext.verify(() -> {
-						client.delete(8080, "localhost", "/api/products")
+						client.delete(DEFAULT_PORT, DEFAULT_HOST, "/api/products")
 								.putHeader("content-type", "application-json; charset=utf-8")
 								.sendJson(newProduct, testContext.succeeding(response2 -> {
 									testContext.verify(() -> {
@@ -192,10 +195,10 @@ public class ProductVerticleTest {
 
 		WebClient client = WebClient.create(vertx);
 
-		client.post(8080, "localhost", "/api/products").putHeader("content-type", "application-json; charset=utf-8")
+		client.post(DEFAULT_PORT, DEFAULT_HOST, "/api/products").putHeader("content-type", "application-json; charset=utf-8")
 				.sendJson(newProduct, testContext.succeeding(response -> {
 					testContext.verify(() -> {
-						client.delete(8080, "localhost", "/api/products")
+						client.delete(DEFAULT_PORT, DEFAULT_HOST, "/api/products")
 								.putHeader("content-type", "application-json; charset=utf-8")
 								.sendJson(newProduct2, testContext.succeeding(response2 -> {
 									testContext.verify(() -> {
@@ -220,10 +223,10 @@ public class ProductVerticleTest {
 
 		WebClient client = WebClient.create(vertx);
 
-		client.post(8080, "localhost", "/api/products").putHeader("content-type", "application-json; charset=utf-8")
+		client.post(DEFAULT_PORT, DEFAULT_HOST, "/api/products").putHeader("content-type", "application-json; charset=utf-8")
 				.sendJson(newProduct, testContext.succeeding(response -> {
 					testContext.verify(() -> {
-						client.delete(8080, "localhost", "/api/products")
+						client.delete(DEFAULT_PORT, DEFAULT_HOST, "/api/products")
 								.putHeader("content-type", "application-json; charset=utf-8")
 								.sendJson(newProduct2, testContext.succeeding(response2 -> {
 									testContext.verify(() -> {

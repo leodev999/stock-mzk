@@ -19,19 +19,15 @@ import io.vertx.ext.web.handler.BodyHandler;
  */
 public class ProductVerticle extends AbstractVerticle {
 
-	public static final int PORT = 8080;
-	public static final int HTTP_STATUS_CODE_400 = 400;
-	public static final int HTTP_STATUS_CODE_200 = 200;
-	public static final String PRODUCT_VERTICLE_DOCUMENTATION = "https://www.google.com";
+	public static final int DEFAULT_PORT = 8080;	
+	public static final int HTTP_SUCCESS = 200;
+	public static final int HTTP_FAIL = 400;
 
 	public static final JsonObject SUCCESS_MESSAGE_RESPONSE = new JsonObject().put("Status", "Success");
 	public static final JsonObject ERROR_MESSAGE_RESPONSE = new JsonObject().put("Status", "Error");
+	public static final String DEFAULT_ERROR_MESSAGE = "Unknown";
 
-	public static final String ERROR_MESSAGE_DUPLICATED_VALUE = "Product already exists.";
-	public static final String ERROR_MESSAGE_NOTEXISTS_VALUE = "Product does not exist.";
-	public static final String ERROR_MESSAGE_INVALID_VALUE = "Invalid product.";
-
-	ProductRepository productRepository = new ProductRepositoryImpl();
+	ProductRepository productRepository = new ProductRepositoryImpl(); 
 
 	@Override
 	public void start(Promise<Void> promise) {
@@ -44,7 +40,7 @@ public class ProductVerticle extends AbstractVerticle {
 		router.get("/api/products").handler(this::listProductsHandler);
 		router.post("/api/products").handler(this::addProductsHandler);
 		router.delete("/api/products").handler(this::removeProductsHandler);
-		vertx.createHttpServer().requestHandler(router).listen(PORT, result -> {
+		vertx.createHttpServer().requestHandler(router).listen(config().getInteger("http.port", DEFAULT_PORT), result -> {
 
 			if (result.succeeded()) {
 				promise.complete();
@@ -70,22 +66,22 @@ public class ProductVerticle extends AbstractVerticle {
 		JsonObject productJson = routingContext.getBodyAsJson();
 
 		if (productJson == null) {
-			response.setStatusCode(HTTP_STATUS_CODE_400)
-					.end(ERROR_MESSAGE_RESPONSE.put("Message", ERROR_MESSAGE_INVALID_VALUE).encodePrettily());
+			response.setStatusCode(HTTP_FAIL)
+					.end(ERROR_MESSAGE_RESPONSE.put("Message", config().getString("message.error.invalid", DEFAULT_ERROR_MESSAGE)).encodePrettily());
 		} else {
 			Product product = Json.decodeValue(productJson.toString(), Product.class);
 
 			if (ProductHelper.isValidProduct(product)) {
 				if (ProductHelper.productExists(product, productRepository)) {
-					response.setStatusCode(HTTP_STATUS_CODE_400).end(
-							ERROR_MESSAGE_RESPONSE.put("Message", ERROR_MESSAGE_DUPLICATED_VALUE).encodePrettily());
+					response.setStatusCode(HTTP_FAIL).end(
+							ERROR_MESSAGE_RESPONSE.put("Message", config().getString("message.error.duplicated", DEFAULT_ERROR_MESSAGE)).encodePrettily());
 				} else {
 					productRepository.insert(product);
-					response.setStatusCode(HTTP_STATUS_CODE_200).end(SUCCESS_MESSAGE_RESPONSE.encodePrettily());
+					response.setStatusCode(HTTP_SUCCESS).end(SUCCESS_MESSAGE_RESPONSE.encodePrettily());
 				}
 			} else {
-				response.setStatusCode(HTTP_STATUS_CODE_400)
-						.end(ERROR_MESSAGE_RESPONSE.put("Message", ERROR_MESSAGE_INVALID_VALUE).encodePrettily());
+				response.setStatusCode(HTTP_FAIL)
+						.end(ERROR_MESSAGE_RESPONSE.put("Message", config().getString("message.error.invalid", DEFAULT_ERROR_MESSAGE)).encodePrettily());
 			}
 
 			response.end();
@@ -98,8 +94,8 @@ public class ProductVerticle extends AbstractVerticle {
 		JsonObject productJson = routingContext.getBodyAsJson();
 
 		if (productJson == null) {
-			response.setStatusCode(HTTP_STATUS_CODE_400)
-					.end(ERROR_MESSAGE_RESPONSE.put("Message", ERROR_MESSAGE_INVALID_VALUE).encodePrettily());
+			response.setStatusCode(HTTP_FAIL)
+					.end(ERROR_MESSAGE_RESPONSE.put("Message", config().getString("message.error.invalid", DEFAULT_ERROR_MESSAGE)).encodePrettily());
 		} else {
 			Product product = Json.decodeValue(productJson.toString(), Product.class);
 
@@ -108,15 +104,15 @@ public class ProductVerticle extends AbstractVerticle {
 					boolean productDeleted = productRepository.delete(product);
 
 					if (productDeleted)
-						response.setStatusCode(HTTP_STATUS_CODE_200).end(SUCCESS_MESSAGE_RESPONSE.encodePrettily());
+						response.setStatusCode(HTTP_SUCCESS).end(SUCCESS_MESSAGE_RESPONSE.encodePrettily());
 
 				} else {
-					response.setStatusCode(HTTP_STATUS_CODE_400)
-							.end(ERROR_MESSAGE_RESPONSE.put("Message", ERROR_MESSAGE_NOTEXISTS_VALUE).encodePrettily());
+					response.setStatusCode(HTTP_FAIL)
+							.end(ERROR_MESSAGE_RESPONSE.put("Message", config().getString("message.error.not_exist", DEFAULT_ERROR_MESSAGE)).encodePrettily());
 				}
 			} else {
-				response.setStatusCode(HTTP_STATUS_CODE_400)
-						.end(ERROR_MESSAGE_RESPONSE.put("Message", ERROR_MESSAGE_INVALID_VALUE).encodePrettily());
+				response.setStatusCode(HTTP_FAIL)
+						.end(ERROR_MESSAGE_RESPONSE.put("Message", config().getString("message.error.invalid", DEFAULT_ERROR_MESSAGE)).encodePrettily());
 			}
 
 			response.end();
